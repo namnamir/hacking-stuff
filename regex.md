@@ -7,3 +7,17 @@ This regex stracts most elemnts of a URL including scheme, user, subdomain, doma
 (?i)(http[s]?:\/\/)?(?i)([0-9a-z-]*@)?(([0-9a-z-]+\.)*([0-9a-z-]{1,256})+(\.[0-9a-z-]{2,})+){1}(:\d*)*([\/|?]+[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)*
 ```
 results can be found [here](https://regex101.com/r/BS07YR/2).
+
+# IPv4
+```
+^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$
+```
+or
+```
+^(?:\d{1,3}\.){3}\d{1,3}$
+```
+
+# IPv6
+```
+^([0-9a-fA-F]){1,4}(:([0-9a-fA-F]){1,4}){7}$
+```
