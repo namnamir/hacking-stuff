@@ -244,8 +244,7 @@ systemctl restart apache2
 adduser USERNAME
 
 # add the user to sudo and netdev groups
-usermod -aG netdev,sudoer USERNAME ### for Debian
-usermod -aG netdev,sudo USERNAME ### for Ubuntu
+usermod -aG netdev,sudo USERNAME
 
 # add 127.0.1.1 to the hosts file
 nano /etc/hosts
