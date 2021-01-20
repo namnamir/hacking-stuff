@@ -4,7 +4,9 @@ This instuction is based on the [official document of Guacamole](https://guacamo
 ### Install _Guacamole_ Dependencies (with XFCE)
 ##### on Debian
 ```bash
+# update and upgrade current apps
 apt update & apt upgrade
+
 # install required dependencies
 apt install libcairo2-dev libjpeg62-turbo-dev libjpeg62-dev libpng12-dev libtool-bin libossp-uuid-dev tomcat9 tomcat9-admin tomcat9-common tomcat9-user build-essential lxde tightvncserver xinetd apache2 sudo wget
 # for me the official defined ones didn't work. I used these
@@ -16,12 +18,19 @@ apt install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2
 
 ##### on Ubuntu
 ```bash
+# update and upgrade current apps
 apt update & apt upgrade
+
+# install apitude because it resolve conflicts
+apt install aptitude
+
 # install required dependencies
-apt install libcairo2-dev libjpeg-turbo8-dev libjpeg62-dev libpng12-dev libtool-bin libossp-uuid-dev tomcat9 tomcat9-admin tomcat9-common tomcat9-user build-essential lxde tightvncserver xinetd apache2
+apt install libcairo2-dev libjpeg-turbo8-dev libjpeg62-dev libpng12-dev libtool-bin libossp-uuid-dev tomcat9 tomcat9-admin tomcat9-common tomcat9-user build-essential lxde lubuntu-desktop tightvncserver xinetd apache2
+# for me the official defined ones didn't work. I used these
+aptitude install libcairo2-dev libjpeg-turbo8-dev libjpeg62-dev libpng-dev libtool-bin libossp-uuid-dev tomcat9 tomcat9-admin tomcat9-common tomcat9-user build-essential lxde lubuntu-desktop tightvncserver xinetd apache2
 
 # install optional dependencies
-apt install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev
+aptitude install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev
 ```
 
 ### Configure and Install _Guacamole_
@@ -218,10 +227,11 @@ a2ensite guacamole.conf
 systemctl restart apache2
 ```
 
-if it shows the error _AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message_ just add the following line to the end of the file `/etc/apache2/apache2.conf'.
+if it shows the error _AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message_ just add the following line to the end of the file `/etc/apache2/apache2.conf`.
 ```conf
 ServerName 127.0.0.1
 ```
+
 And restart the _Apache_ server.
 ```bash
 systemctl restart apache2
@@ -234,7 +244,8 @@ systemctl restart apache2
 adduser USERNAME
 
 # add the user to sudo and netdev groups
-usermod -aG netdev,sudoer USERNAME
+usermod -aG netdev,sudoer USERNAME ### for Debian
+usermod -aG netdev,sudo USERNAME ### for Ubuntu
 
 # add 127.0.1.1 to the hosts file
 nano /etc/hosts
