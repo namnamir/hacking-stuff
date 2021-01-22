@@ -65,6 +65,48 @@ systemctl enable guacd
 ```
 
 ### Configure the VNC Server
+##### Configure Single-User Login
+Run VNS server by executing the following command:
+```bash
+vncserver
+```
+
+Modify the file `~/.vnc/xstartup` as follow.
+```config
+#!/bin/bash
+
+xrdb $HOME/.Xresources
+#xsetroot -solid grey
+#x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+#x-window-manager &
+
+
+# Fix to make GNOME work
+export XKL_XMODMAP_DISABLE=1
+/etc/X11/Xsession
+lxterminal &
+/usr/bin/lxsession -s LXDE &
+```
+
+Add the following line to the file `~/.vncrc`.
+```config
+# read more on https://manpages.debian.org/stretch/tigervnc-standalone-server/vnc.conf.5x.en.html
+
+$geometry = "1780x1050";
+$depth =  16;
+$pixelformat =  RGB565;
+$xauthorityFile = "$HOME/.Xauthority";
+$vncUserDir = "$HOME/.vnc";
+$vncStartup = "/etc/X11/XSession";
+$wmDecoration = "8x64";
+```
+
+Stop the VNC server and rerun it again.
+```bash
+vncserver -kill :1
+
+vncserver
+```
 ##### Configure Multi-User Login
 ```bash
 # run xinetd on a one-time basis by using its System V (SysV) startup script
