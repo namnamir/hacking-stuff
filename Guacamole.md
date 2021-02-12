@@ -33,23 +33,36 @@ aptitude install libcairo2-dev libjpeg-turbo8-dev libjpeg62-dev libpng-dev libto
 aptitude install libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev
 ```
 
+### Set the Hostname
+In order to fix the error `unable to resolve host pentest: Name or service not known`, it is important to add the host name to the `hosts` file.
+```bash
+# open the file
+nano /etc/hosts
+
+# add 127.0.1.1 to the hosts file
+127.0.1.1 HOSTNAME
+```
+
 ### Configure and Install _Guacamole_
 
-##### Download form Github (maybe unstable)
+##### Download from Github or the Website
+If you go for downloading from the website, just get the latest _server_ version from the [website](https://guacamole.apache.org/releases/)
 ```bash
+# Download form Github (maybe unstable)
 apt install git
 git clone git://github.com/apache/guacamole-server.git
 cd guacamole-server/
 autoreconf -fi
-```
-##### Download form the website
-Just get the latest _server_ version from the [website](https://guacamole.apache.org/releases/)
-```bash
+
+#### OR ####
+
+# Download form the website
 # in the time of writing this manual, the latest version is 1.3.0.
 wget "https://downloads.apache.org/guacamole/1.3.0/source/guacamole-server-1.3.0.tar.gz"
 tar -xzf guacamole-server-1.3.0.tar.gz
 cd guacamole-server-1.3.0/
 ```
+
 ##### Configure the installation
 ```bash
 ./configure --with-init-dir=/etc/init.d
@@ -64,15 +77,33 @@ systemctl start guacd
 systemctl enable guacd
 ```
 
+### Create a New User and Login to the User
+```bash
+# create a user
+adduser USERNAME
+
+# add the user to sudo and netdev groups
+usermod -aG netdev,sudo USERNAME
+
+# login to the user
+su USERNAME
+```
+
 ### Configure the VNC Server
 ##### Configure Single-User Login
 Run VNS server by executing the following command:
 ```bash
+# do not run it as root (no sudo)
 vncserver
 ```
 
 Modify the file `~/.vnc/xstartup` as follow.
-```config
+```bash
+# open the file
+nano ~/.vnc/xstartup
+
+#### add/modify the following lines
+
 #!/bin/bash
 
 xrdb $HOME/.Xresources
@@ -89,7 +120,12 @@ lxterminal &
 ```
 
 Add the following line to the file `~/.vncrc`.
-```config
+```bash
+# open the file
+nano ~/.vncrc
+
+#### add the following lines
+
 # read more on https://manpages.debian.org/stretch/tigervnc-standalone-server/vnc.conf.5x.en.html
 
 $geometry = "1780x1050";
@@ -178,6 +214,11 @@ echo "GUACAMOLE_HOME=/etc/guacamole" >> /etc/default/tomcat9
 ##### Edit configuration
 Add the following lines to the file `/etc/guacamole/guacamole.properties`.
 ```bash
+# open the file
+nano /etc/guacamole/guacamole.properties
+
+### add the following line to it
+
 # Hostname and port of guacamole proxy
 guacd-hostname: localhost
 guacd-port: 4822
@@ -272,12 +313,18 @@ systemctl restart apache2
 ```
 
 if it shows the error _AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message_ just add the following line to the end of the file `/etc/apache2/apache2.conf`.
-```conf
+```bash
+# open the file
+nano /etc/apache2/apache2.conf
+
+
+# add the following line to the end of the file
 ServerName 127.0.0.1
 ```
 
 And restart the _Apache_ server.
 ```bash
+a2ensite guacamole.conf
 systemctl restart apache2
 ```
 
@@ -291,19 +338,3 @@ nano /var/lib/tomcat9/webapps/guacamole/robots.txt
 User-Agent: *
 Disallow: /
 ```
-
-
-### Other Configuarions
-```bash
-# create a user
-adduser USERNAME
-
-# add the user to sudo and netdev groups
-usermod -aG netdev,sudo USERNAME
-
-# add 127.0.1.1 to the hosts file
-nano /etc/hosts
-# and add the following line
-127.0.1.1 HOSTNAME
-```
-
