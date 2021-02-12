@@ -215,11 +215,13 @@ nano /etc/guacamole/user-mapping.xml
          <param name="password">VNC_PASSWORD</param>
        </connection>
 
+       <!--
        <connection name="RDP Connection">
          <protocol>rdp</protocol>
          <param name="hostname">localhost</param>
          <param name="port">3389</param>
        </connection>
+       -->
     </authorize>
 
 </user-mapping>
@@ -277,6 +279,17 @@ ServerName 127.0.0.1
 And restart the _Apache_ server.
 ```bash
 systemctl restart apache2
+```
+
+### Create the robots.txt File
+Create the `robots.txt` file in `/var/lib/tomcat9/webapps/guacamole`.
+```bash
+# create the file
+nano /var/lib/tomcat9/webapps/guacamole/robots.txt
+
+# add the following lines to discourage robots
+User-Agent: *
+Disallow: /
 ```
 
 
