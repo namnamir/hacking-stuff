@@ -15,6 +15,8 @@ New-NetFirewallRule -DisplayName 'RDPPORTLatest-UDP-In' -Profile 'Public' -Direc
 ```PowerShell
 wmic UserAccount
 
+Rename-LocalUser -Name <CURRENT_USERNAME> -NewName <NEW_USERNAME>
+
 # example:
-wmic useraccount where name='guest' set disabled=true	
+wmic UserAccount WHERE Name='guest' SET Disabled=True	
 ```
