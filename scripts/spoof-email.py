@@ -1,3 +1,5 @@
+# credit: https://x-it.medium.com/how-to-spoof-email-for-free-guide-a5fe0c6ee631
+
 import smtplib 
 from email.mime.text import MIMEText 
 from email.mime.multipart import MIMEMultipart
