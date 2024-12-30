@@ -56,8 +56,8 @@ Note: If you run it without the argument --server inter-ikea.com, it will ask fo
 [Here](https://github.com/namnamir/hacking-stuff/blob/main/scripts/PingCastle-Automation.ps1) is the automated script.
 
 ### Prerequisites
-- You can either run it in the same folder as PingCastle.exe, or change the value of the variable $PingCastlePath to specify where PingCastle is. 
-- It is the same for PingCastle Dashboard; make sure that the script is downloaded in the same place as PingCastle is downloaded or change the path manually $DashboardPath.
-- If you need to run the scan on any other domain rather than inter-ikea.com, just mention it as the value of the variable $DomainName.
-- If you need to receive the email, change the value of $SendEmail to $True. However, you have to set the SMTP values: $EmailRecipients, $SMTPServer, $SMTPPort, $SMTPUser, $SMTPPassword.
-- You can change the header and footer of the dashboard by changing the values of $HTMLHeader and $HTMLFooter.
+- You can either run it in the same folder as `PingCastle.exe`, or change the value of the variable `$PingCastlePath` to specify where PingCastle is. 
+- It is the same for PingCastle Dashboard; make sure that the script is downloaded in the same place as PingCastle is downloaded or change the path manually `$DashboardPath`.
+- If you need to run the scan on any other domain rather than `domain.com`, just mention it as the value of the variable `$DomainName`.
+- If you need to receive the email, change the value of `$SendEmail` to `$True`. However, you have to set the SMTP values: $EmailRecipients, `$SMTPServer`, `$SMTPPort`, `$SMTPUser`, `$SMTPPassword`.
+- You can change the header and footer of the dashboard by changing the values of `$HTMLHeader` and `$HTMLFooter`.
