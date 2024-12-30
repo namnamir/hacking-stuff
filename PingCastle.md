@@ -22,7 +22,7 @@ You can use the script that will be introduced later to run PingCastle authentic
 # to perfom the scan in the interactive mode
 PingCastle.exe --explore
 # to perfom the scan on a specific domain
-PingCastle.exe --healthcheck --server inter-ikea.com
+PingCastle.exe --healthcheck --server domain.com
 ```
 Note: If you run it without the argument --server inter-ikea.com, it will ask for the domain name.
 
